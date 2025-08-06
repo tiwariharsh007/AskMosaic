@@ -3,7 +3,7 @@ export const APP_FEATURES = [
         id: "01",
         title: "Feature One",
         description: "This is the first feature of our application, providing users with an intuitive interface.",
-    }
+    },
     {
         id: "02",
         title: "Feature Two",
