@@ -4,6 +4,9 @@ import { APP_FEATURES } from '../utils/data';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { LuSparkle } from 'react-icons/lu';
+import Modal from '../components/Modal';
+import SignUp from './Auth/SignUp';
+import Login from './Auth/Login';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -130,6 +133,18 @@ const LandingPage = () => {
         Made with ❤️ by Harsh Tiwari
       </div>
     </div>
+
+    <Modal isOpen={openAuthModal} onClose={() => setOpenAuthModal(false)} hideHeader>
+      <div>
+        {currentPage === 'login' && (
+          <Login setCurrentPage={setCurrentPage} />
+        )}
+        {currentPage === 'signup' && (
+          <SignUp setCurrentPage={setCurrentPage} />
+        )}
+      </div>
+    </Modal>
+
     </>
   );
 };
