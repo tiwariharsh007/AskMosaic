@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Inputs/Input';
+import { validateEmail } from '../../utils/helper';
 
 const Login = ({ setCurrentPage }) => {
   const [email, setEmail] = useState('');
@@ -13,8 +14,30 @@ const Login = ({ setCurrentPage }) => {
   const handleLogin = (e) => {
     e.preventDefault();
 
+    if(!validateEmail(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    if(!password) {
+      setError('Password is required.');
+      return;
+    }
+    if(password.length < 8) {
+      setError('Password must be at least 8 characters long.');
+      return;
+    }
+    setError("");
 
-  };
+    try{
+
+    }catch(err) {
+      if(err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      }else {
+        setError('An unexpected error occurred. Please try again later.');
+      }
+    };
+  }
 
 
   return (
