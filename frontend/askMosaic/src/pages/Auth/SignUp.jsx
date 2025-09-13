@@ -1,47 +1,70 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Inputs/Input';
 import ProfilePhotoSelector from '../../components/Inputs/ProfilePhotoSelector';
 import { validateEmail } from '../../utils/helper';
+import axiosInstance from '../../utils/axiosInstance';
+import { API_PATHS } from '../../utils/apiPaths';
+import { UserContext } from '../../context/userContext';
+import { uploadImage } from '../../utils/uploadImage';
 
-const SignUp = ( {setCurrentPage} ) => {
+const SignUp = ({ setCurrentPage }) => {
   const [profilePic, setProfilePic] = useState(null);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const { updateUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
-  // Handle profile picture change
   const handleSignUp = async (e) => {
     e.preventDefault();
 
     let profileImageUrl = "";
 
-    if(!fullName) {
+    if (!fullName) {
       setError('Full name is required.');
       return;
     }
-    if(!validateEmail(email)) {
-          setError('Please enter a valid email address.');
-          return;
+    if (!validateEmail(email)) {
+      setError('Please enter a valid email address.');
+      return;
     }
-    if(!password) {
+    if (!password) {
       setError('Password is required.');
       return;
     }
     setError("");
 
-    try{
+    try {
+      if (profilePic) {
+        const imgUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imgUploadRes.imageUrl || "";
+      }
 
-    }catch(err) {
-      if(err.response && err.response.data.message) {
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+        name: fullName,
+        email,
+        password,
+        profileImageUrl,
+      });
+
+      const { token } = response.data;
+
+      if (token) {
+        localStorage.setItem('token', token);
+        updateUser(response.data);
+        navigate('/dashboard');
+      }
+
+    } catch (err) {
+      if (err.response && err.response.data.message) {
         setError(err.response.data.message);
-      }else {
+      } else {
         setError('An unexpected error occurred. Please try again later.');
       }
-    };
+    }
   };
 
   return (
@@ -57,7 +80,7 @@ const SignUp = ( {setCurrentPage} ) => {
         <div className='grid grid-cols-1 md:grid-cols-1 gap-2'>
           <Input
             value={fullName}
-            onChange={({target}) => setFullName(target.value)}
+            onChange={({ target }) => setFullName(target.value)}
             label="Full Name"
             placeholder="Enter your full name"
             type="text"
@@ -65,7 +88,7 @@ const SignUp = ( {setCurrentPage} ) => {
 
           <Input
             value={email}
-            onChange={({target}) => setEmail(target.value)}
+            onChange={({ target }) => setEmail(target.value)}
             label="Email Address"
             placeholder="john@example.com"
             type="text"
@@ -73,14 +96,14 @@ const SignUp = ( {setCurrentPage} ) => {
 
           <Input
             value={password}
-            onChange={({target}) => setPassword(target.value)}
+            onChange={({ target }) => setPassword(target.value)}
             label="Password"
             placeholder="Minimum 8 characters"
             type="password"
           />
         </div>
 
-        {error && 
+        {error &&
           <p className='text-red-500 text-xs pb-2.5'>
             {error}
           </p>
@@ -92,11 +115,10 @@ const SignUp = ( {setCurrentPage} ) => {
 
         <p className='text-[13px] text-slate-800 mt-3'>
           Already have an account? {" "}
-          <button 
+          <button
+            type="button"
             className='font-medium text-primary underline cursor-pointer'
-            onClick={() => {
-              setCurrentPage('login');
-            }}
+            onClick={() => setCurrentPage('login')}
           >
             Login
           </button>
@@ -107,4 +129,4 @@ const SignUp = ( {setCurrentPage} ) => {
   )
 }
 
-export default SignUp
+export default SignUp;
