@@ -33,7 +33,6 @@ AskMosaic helps users practice interviews by generating role-based technical que
 - Tailwind CSS
 - Axios
 - React Router DOM
-- Framer Motion
 
 **Backend**
 - Node.js + Express
@@ -43,7 +42,7 @@ AskMosaic helps users practice interviews by generating role-based technical que
 
 **Deployment**
 - Frontend → Vercel  
-- Backend → (Any Node server: Render, Railway, AWS, etc.)
+- Backend → Render
 
 ---
 
