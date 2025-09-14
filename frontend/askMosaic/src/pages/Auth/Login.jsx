@@ -56,8 +56,8 @@ const Login = ({ setCurrentPage }) => {
 
   return (
     <div className='w-[90vw] md:w-[33vw] p-7 flex flex-col justify-center'>
-      <h3 className='text-lg font-semibold text-black'>Welcome Back</h3>
-      <p className='text-xs text-slate-700 mt-[5px] mb-6'>
+      <h3 className='text-lg font-semibold text-slate-900'>Welcome Back</h3>
+      <p className='text-xs text-gray-700 mt-[5px] mb-6'>
         Please enter your credentials to access your account.
       </p>
 
@@ -80,13 +80,19 @@ const Login = ({ setCurrentPage }) => {
 
         {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
 
-        <button type='submit' className='btn-primary'>Login</button>
+        <button
+          type='submit'
+          className='w-full bg-indigo-600 text-white text-sm font-semibold px-6 py-2.5 
+          rounded-lg hover:bg-indigo-700 transition-all shadow-md hover:shadow-lg'
+        >
+          Login
+        </button>
 
-        <p className='text-[13px] text-slate-800 mt-3'>
+        <p className='text-[13px] text-gray-700 mt-3'>
           Don't have an account?{" "}
           <button
             type="button"
-            className='font-medium text-primary underline cursor-pointer'
+            className='font-medium text-indigo-600 hover:text-indigo-700 underline cursor-pointer'
             onClick={() => setCurrentPage('signup')}
           >
             Sign Up

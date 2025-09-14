@@ -58,7 +58,8 @@ const SignUp = ({ setCurrentPage }) => {
       if (token) { 
         localStorage.setItem('token', token); 
         updateUser(response.data); 
-        navigate('/dashboard'); }
+        navigate('/dashboard'); 
+      }
 
     } catch (err) {
       if (err.response?.data?.message) {
@@ -71,8 +72,8 @@ const SignUp = ({ setCurrentPage }) => {
 
   return (
     <div className='w-[80vw] md:w-[33vw] p-7 flex flex-col justify-center'>
-      <h3 className='text-lg font-semibold text-black'>Create an Account</h3>
-      <p className='text-xs text-slate-700 mt-[5px] mb-6'>
+      <h3 className='text-lg font-semibold text-slate-900'>Create an Account</h3>
+      <p className='text-xs text-gray-700 mt-[5px] mb-6'>
         Join us and start your journey with us.
       </p>
 
@@ -107,13 +108,19 @@ const SignUp = ({ setCurrentPage }) => {
 
         {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
 
-        <button type='submit' className='btn-primary'>Sign Up</button>
+        <button
+          type='submit'
+          className='w-full bg-indigo-600 text-white text-sm font-semibold px-6 py-2.5 
+          rounded-lg hover:bg-indigo-700 transition-all shadow-md hover:shadow-lg'
+        >
+          Sign Up
+        </button>
 
-        <p className='text-[13px] text-slate-800 mt-3'>
+        <p className='text-[13px] text-gray-700 mt-3'>
           Already have an account?{" "}
           <button
             type="button"
-            className='font-medium text-primary underline cursor-pointer'
+            className='font-medium text-indigo-600 hover:text-indigo-700 underline cursor-pointer'
             onClick={() => setCurrentPage('login')}
           >
             Login

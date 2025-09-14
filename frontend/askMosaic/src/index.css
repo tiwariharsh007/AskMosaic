@@ -8,23 +8,28 @@
 }
 
 @layer base {
-  html{
+  html {
     font-family: var(--font-display);
   }
+
   body {
     background-color: #fcfbfc;
     overflow-x: hidden;
+    padding-left: 0.8rem; /* 8px horizontal padding */
+    padding-right: 0.8rem;
   }
 }
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(100,100,100,0.4);
+  background-color: rgba(100, 100, 100, 0.4);
   border-radius: 10px;
 }
 
@@ -42,7 +47,7 @@
     animation: text-shine 3s ease-in-out infinite alternate;
   }
 
-  @keyframes blob1{
+  @keyframes blob1 {
     0%, 100% {
       transform: translate(0px, 0px) scale(1);
     }
@@ -54,7 +59,7 @@
     }
   }
 
-  @keyframes blob2{
+  @keyframes blob2 {
     0%, 100% {
       transform: translate(0px, 0px) scale(1);
     }
@@ -66,7 +71,7 @@
     }
   }
 
-  @keyframes blob3{
+  @keyframes blob3 {
     0%, 100% {
       transform: translate(0px, 0px) scale(1);
     }
@@ -99,6 +104,6 @@
   @apply w-full flex items-center justify-center gap-3 text-sm font-medium text-white bg-black shadow-lg shadow-orange-600/5 p-[10px] rounded-md my-1 hover:bg-orange-600/15 hover:text-black cursor-pointer;
 }
 
-.btn-small{
-  @apply flex items-center justify-center gap-3 bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2 rounded-lg hover:bg-black hover:text-white transition-colors cursor-pointer hover:shadow-2xl hover:shadow-orange-300 ;
+.btn-small {
+  @apply flex items-center justify-center gap-3 bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2 rounded-lg hover:bg-black hover:text-white transition-colors cursor-pointer hover:shadow-2xl hover:shadow-orange-300;
 }

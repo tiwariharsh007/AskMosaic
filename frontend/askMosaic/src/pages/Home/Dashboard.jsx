@@ -11,6 +11,7 @@ import SummaryCard from '../../components/Cards/SummaryCard';
 import moment from 'moment';
 import Modal from '../../components/Modal';
 import CreateSessionForm from './CreateSessionForm';
+import DeleteAlertContent from '../../components/Loader/DeleteALertContent';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -23,17 +24,42 @@ const Dashboard = () => {
     data: null
   });
 
+//   const fetchAllSessions = async () => {
+//   try {
+//     const response = await axiosInstance.get(API_PATHS.SESSION.GET_ALL);
+//     setSessions(response.data);
+//   } catch (error) {
+//       console.error("Error fetching sessions:", error.message);
+//   }
+// };
+
   const fetchAllSessions = async () => {
-  try {
-    const response = await axiosInstance.get(API_PATHS.SESSION.GET_ALL);
-    setSessions(response.data);
-  } catch (error) {
+    try {
+      const response = await axiosInstance.get(API_PATHS.SESSION.GET_ALL);
+      console.log("Fetched sessions:", response.data);
+      setSessions(response.data || []);  // Correct: response.data is the sessions array
+    } catch (error) {
       console.error("Error fetching sessions:", error.message);
-  }
-};
+    }
+  };
 
 
-  const deleteSession = async (sessionData) => {};
+
+
+  const deleteSession = async (sessionData) => {
+    try{
+      await axiosInstance.delete(API_PATHS.SESSION.DELETE(sessionData?._id));
+
+      toast.success("Session deleted successfully.");
+      setOpenDeleteAlert({
+        open: false,
+        data: null,
+      });
+      fetchAllSessions();
+    } catch(error){
+        console.log('Error deleting session data:', error);
+    }
+  };
 
   useEffect(() => {
     fetchAllSessions();
@@ -62,9 +88,10 @@ const Dashboard = () => {
         </div>
 
         <button
-          className='h-12 md:h-12 flex items-center justify-center gap-3 bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-black hover:text-white transition-colors cursor-pointer hover:shadow-2xl hover:shadow-orange-300 fixed bottom-10 md:bottom-20 right-10 md:right-20'
+          className="h-12 md:h-12 flex items-center justify-center gap-3 bg-indigo-600 text-white text-sm font-semibold px-7 py-2.5 rounded-full hover:bg-indigo-700 transition-colors cursor-pointer hover:shadow-2xl hover:shadow-indigo-300 fixed bottom-10 md:bottom-20 right-10 md:right-20"
           onClick={() => setOpenCreateModal(true)}
         >
+
           <LuPlus className='text-2xl text-white' />
           Add New
         </button>
@@ -79,6 +106,22 @@ const Dashboard = () => {
             <CreateSessionForm />
           </div>
         </Modal>
+
+        <Modal
+          isOpen={openDeleteAlert?.open}
+          onClose={() => {
+            setOpenDeleteAlert({open : false, data : null});
+          }}
+          title= "Delete Alert"
+        >
+          <div className='w-[30vw]'>
+            <DeleteAlertContent
+              content = "Are you sure you want to delete this session details?"
+              onDelete={() => deleteSession(openDeleteAlert.data)}
+            />
+          </div>
+        </Modal>
+
     </DashboardLayout>
   )
 }

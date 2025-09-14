@@ -15,18 +15,24 @@ const ProfileInfoCard = () => {
   return (
     user && (
       <div className='flex items-center'>
-        <img 
-          src={user?.profileImageUrl} 
-          alt=""
-          className='w-11 h-11 bg-gray-300 rounded-full mr-3'
-        />
+        {user?.profileImageUrl ? (
+          <img 
+            src={user.profileImageUrl} 
+            alt="Profile"
+            className='w-11 h-11 bg-gray-300 rounded-full mr-3'
+          />
+        ) : (
+          <div className='w-11 h-11 bg-gray-300 rounded-full mr-3 flex items-center justify-center text-white font-bold'>
+            {user?.name ? user.name[0].toUpperCase() : "U"}
+          </div>
+        )}
 
         <div>
           <div className='text-[15px] text-black font-bold leading-3'>
             {user?.name || ""}
           </div>
           <button 
-            className='text-amber-600 text-sm font-semibold cursor-pointer hover:underline' 
+            className='text-indigo-600 text-sm font-semibold cursor-pointer hover:underline' 
             onClick={handleLogout}
           >
             Logout

@@ -55,9 +55,14 @@ const SummaryCard = ({
                     Experience: {experience} {experience == 1 ? "Year" : "Years"}
                 </div>
 
-                <div className='text-[10px] font-medium text-black px-3 py-1 border-[0.5px] border-gray-900 rounded-full'>
+                {/* <div className='text-[10px] font-medium text-black px-3 py-1 border-[0.5px] border-gray-900 rounded-full'>
                     {questions} Q&A
+                </div> */}
+
+                <div className='text-[10px] font-medium text-black px-3 py-1 border-[0.5px] border-gray-900 rounded-full'>
+                    {Array.isArray(questions) ? questions.length : questions} Q&A
                 </div>
+
 
                 <div className='text-[10px] font-medium text-black px-3 py-1 border-[0.5px] border-gray-900 rounded-full'>
                     Last Updated:{lastUpdated}
