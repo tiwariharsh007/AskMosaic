@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Inputs/Input';
 import ProfilePhotoSelector from '../../components/Inputs/ProfilePhotoSelector';
@@ -14,33 +14,36 @@ const SignUp = ({ setCurrentPage }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const { updateUser } = useContext(UserContext);
 
+  const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    let profileImageUrl = "";
+    let profileImageUrl = '';
 
     if (!fullName) {
       setError('Full name is required.');
       return;
     }
+
     if (!validateEmail(email)) {
       setError('Please enter a valid email address.');
       return;
     }
+
     if (!password) {
       setError('Password is required.');
       return;
     }
-    setError("");
+
+    setError('');
 
     try {
       if (profilePic) {
         const imgUploadRes = await uploadImage(profilePic);
-        profileImageUrl = imgUploadRes.imageUrl || "";
+        profileImageUrl = imgUploadRes.imageUrl || '';
       }
 
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
@@ -52,14 +55,13 @@ const SignUp = ({ setCurrentPage }) => {
 
       const { token } = response.data;
 
-      if (token) {
-        localStorage.setItem('token', token);
-        updateUser(response.data);
-        navigate('/dashboard');
-      }
+      if (token) { 
+        localStorage.setItem('token', token); 
+        updateUser(response.data); 
+        navigate('/dashboard'); }
 
     } catch (err) {
-      if (err.response && err.response.data.message) {
+      if (err.response?.data?.message) {
         setError(err.response.data.message);
       } else {
         setError('An unexpected error occurred. Please try again later.');
@@ -103,18 +105,12 @@ const SignUp = ({ setCurrentPage }) => {
           />
         </div>
 
-        {error &&
-          <p className='text-red-500 text-xs pb-2.5'>
-            {error}
-          </p>
-        }
+        {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
 
-        <button type='submit' className='btn-primary'>
-          Sign Up
-        </button>
+        <button type='submit' className='btn-primary'>Sign Up</button>
 
         <p className='text-[13px] text-slate-800 mt-3'>
-          Already have an account? {" "}
+          Already have an account?{" "}
           <button
             type="button"
             className='font-medium text-primary underline cursor-pointer'
@@ -123,10 +119,9 @@ const SignUp = ({ setCurrentPage }) => {
             Login
           </button>
         </p>
-
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default SignUp;

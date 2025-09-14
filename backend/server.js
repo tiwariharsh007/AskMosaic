@@ -13,12 +13,13 @@ const { protect } = require("./middlewares/authMiddleware");
 const app = express();
 
 // Middleware 
-app.use(express.json()); // <- should be before routes
+app.use(express.json());
 app.use(cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
 
 // Serve uploads folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
