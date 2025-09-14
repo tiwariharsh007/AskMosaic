@@ -20,9 +20,9 @@ AskMosaic helps users practice interviews by generating role-based technical que
 
 ## 🖼️ Screenshots
 
-| All Sessions | Create Interview | Delete Session | Interview UI | Landing Page |
-|--------------|------------------|----------------|--------------|--------------|
-| ![All Sessions](./assets/All-Sessions.jpeg) | ![Create Interview](./assets/Create-Interview.jpeg) | ![Delete Session](./assets/Delete-Session.jpeg) | ![Interview](./assets/Interview.jpeg) | ![Landing Page](./assets/Landing-Page.jpeg) |
+| Landing Page | Create Interview | All Sessions | Interview UI | Delete Session |
+|-------------|-----------------|--------------|-------------|--------------|
+| ![Landing Page](./assets/Landing-Page.jpeg) | ![Create Interview](./assets/Create-Interview.jpeg) | ![All Sessions](./assets/All-Sessions.jpeg) | ![Interview](./assets/Interview.jpeg) | ![Delete Session](./assets/Delete-Session.jpeg) |
 
 ---
 
